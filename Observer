@@ -1,0 +1,12 @@
+
+/* Dillan Poorman
+ * 
+ */
+
+package ObserverPractice;
+
+public interface Observer {
+	
+	public void update();
+
+}
