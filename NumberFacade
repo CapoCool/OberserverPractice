@@ -1,0 +1,103 @@
+//Dillan Poorman
+
+package ObserverPractice;
+
+import java.util.ArrayList;
+
+public class NumberFacade implements Subject {
+	
+	private ArrayList<Integer> numberList = new ArrayList<Integer>();
+	private ArrayList<NumberObserver> observers = new ArrayList<NumberObserver>();
+	
+	
+	public void setNumbersList(int[] numberList) {
+		for(int i = 0; i < 5; i++) {
+			this.numberList.add(numberList[i]);
+		}
+	}
+	
+	/*	Add numbers, simply adds each number to a single variable
+	 * 
+	 */
+	public void addNumbers() {
+		int total = 0;
+		for(int i = 0; i < 5; i++) {
+			total += numberList.get(i);
+		}
+		System.out.println("********** Add all the numbers together ***********");
+		numberList.add(total);
+		notifyObserver();
+	}
+	
+	
+	//Adds all the numbers together and then just subtracts the result from 100
+	public void subtractNumbers() {
+		int total = 0;
+		for(int i = 0; i < 5; i++) {
+			total += numberList.get(i);
+		}
+		System.out.println("********** Subtract all the numbers from 100 ***********");
+		numberList.add(100 - total);
+		notifyObserver();
+	}
+	
+	
+	//Multiplies all the numbers in the list together with a try catch block in case all the number generated are 9, 9^10
+	// is 3.5 billion, which would generate an integer overflow exception. If an integer overflow is thrown, it just
+	// switches to a long variable.
+	
+	//Edit for Observers Design: yeah, my try catch is useless with an integer ArrayList lol
+	public void multiplyNumbers() {
+		int total = 1;
+		try {
+			for(int i = 0; i < 5; i++) {
+				total *= numberList.get(i);
+			}
+			System.out.println("********** Multiply all the numbers together ***********");
+			numberList.add(total);
+			notifyObserver();
+		}
+		catch(ArithmeticException ex) {
+			long total2 = 1;
+			for(int i = 0; i < 5; i++) {
+				total2 *= (long) numberList.get(i);
+			}
+			System.out.println("********** Multiply all the numbers together ***********");
+
+			
+			
+		}
+		
+	}
+
+	@Override
+	public void register(NumberObserver o) {
+		// TODO Auto-generated method stub
+		observers.add(o);
+	}
+
+	@Override
+	public void unregister(NumberObserver o) {
+		// TODO Auto-generated method stub
+		int obsIndex = observers.indexOf(o);
+		
+		observers.remove(obsIndex);
+	}
+
+	@Override
+	public void notifyObserver() {
+		// TODO Auto-generated method stub
+		
+		for(NumberObserver observer: observers) {
+			observer.update();
+		}
+		
+	}
+	
+	public void printNumbers() {
+		for(int i = 0; i < numberList.size(); i++) {
+			System.out.println(numberList.get(i));
+		}
+	}
+
+}
