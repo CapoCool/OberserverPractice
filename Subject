@@ -1,0 +1,16 @@
+
+/* Dillan Poorman
+ * 
+ */
+
+package ObserverPractice;
+
+public interface Subject {
+	
+	public void register(NumberObserver o);
+	
+	public void unregister(NumberObserver o);
+	
+	public void notifyObserver();
+
+}
