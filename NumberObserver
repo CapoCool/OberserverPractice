@@ -1,0 +1,41 @@
+
+/* Dillan Poorman
+ * 
+ */
+
+package ObserverPractice;
+
+public class NumberObserver implements Observer {
+	
+	private int number;
+
+	private static int observerIdTracker = 0;
+	
+	private int observerID;
+	
+	private NumberFacade numberGrabber;
+	
+	public NumberObserver(NumberFacade numberGrabber) {
+		this.numberGrabber = numberGrabber;
+		
+		this.observerID = ++observerIdTracker;
+		
+		numberGrabber.register(this);
+	}
+	
+	@Override
+	public void update() {
+		
+		
+		System.out.println("********** numberList has been updated ***********");
+		
+		numberGrabber.printNumbers();
+		
+	}
+	
+	public void print() {
+		numberGrabber.printNumbers();
+	}
+	
+	
+}
